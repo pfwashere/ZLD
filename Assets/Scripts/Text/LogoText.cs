@@ -1,23 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LogoText : MonoBehaviour
 {
-    public GameObject logotext;
+    public GameObject tooltip;
 
-    public void Start()
+    void Start()
     {
-        logotext.SetActive(false);
-
-    }
-    public void OnMouseOver()
-    {
-        logotext.SetActive(true);
+        tooltip.SetActive(false);
     }
 
-    public void OnMouseExit()
+    void OnMouseOver()
     {
-        logotext.SetActive(false);
+        tooltip.SetActive(true);
+    }
+
+    void OnMouseExit()
+    {
+        tooltip.SetActive(false);
+    }
+
+    public void ForceHide()
+    {
+        tooltip.SetActive(false);
     }
 }

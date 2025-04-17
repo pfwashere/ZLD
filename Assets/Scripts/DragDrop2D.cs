@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DragDrop2D : MonoBehaviour
 {
     Vector3 offset;
-    Collider2D collider2D;
+    new Collider2D collider2D;
     public string destinationTag = "DropArea";
     public float snapRange = 0.3f; 
     private Transform nearestSlot; 
@@ -40,15 +38,45 @@ public class DragDrop2D : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, nearestSlot.position);
 
-            
             if (distance <= snapRange)
             {
-                transform.position = nearestSlot.position; 
+                transform.position = nearestSlot.position;
             }
+            else
+            {
+                CheckIfDroppedOnBin(); // ← Check bin if not snapped
+            }
+        }
+        else
+        {
+            CheckIfDroppedOnBin(); // ← Check bin if no slot found
         }
 
         collider2D.enabled = true;
     }
+    void CheckIfDroppedOnBin()
+    {
+        Collider2D[] hits = Physics2D.OverlapPointAll(transform.position);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Bin"))
+            {
+                // Try to find LogoText component on THIS dragged object (not the bin)
+                LogoText tooltip = GetComponent<LogoText>();
+                if (tooltip != null)
+                {
+                    tooltip.ForceHide();
+                }
+                    
+                Destroy(gameObject); // ลบวัตถุ
+                return;
+            }
+        }
+    }
+
+
+
 
     Vector3 MouseWorldPosition()
     {
