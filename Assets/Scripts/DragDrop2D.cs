@@ -6,7 +6,8 @@ public class DragDrop2D : MonoBehaviour
     new Collider2D collider2D;
     public string destinationTag = "DropArea";
     public float snapRange = 0.3f; 
-    private Transform nearestSlot; 
+    private Transform nearestSlot;
+    public GameObject Description;
 
     void Awake()
     {
@@ -60,15 +61,11 @@ public class DragDrop2D : MonoBehaviour
 
         foreach (var hit in hits)
         {
+            Description.SetActive(false);
             if (hit.CompareTag("Bin"))
-            {
-                // Try to find LogoText component on THIS dragged object (not the bin)
-                LogoText tooltip = GetComponent<LogoText>();
-                if (tooltip != null)
-                {
-                    tooltip.ForceHide();
-                }
-                    
+            {             
+                
+                new WaitForSeconds(0.2f);
                 Destroy(gameObject); // ลบวัตถุ
                 return;
             }

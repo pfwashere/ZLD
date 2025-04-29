@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 1.unity
     guid: 84ca9ca145712e9479af318785a13834
   - enabled: 1
+    path: Assets/Scenes/QuizLvl1.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
     path: Assets/Scenes/Level 2.unity
-    guid: 23bf2dd60d9cd6945bfe8643c765cac6
+    guid: 1f76b9a7866e2504a967fb7d8471003c
+  - enabled: 1
+    path: Assets/Scenes/QuizLvl2.unity
+    guid: c41164df5472a124c9f55bb289fbcfef
   m_configObjects: {}

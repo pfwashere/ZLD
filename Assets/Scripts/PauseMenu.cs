@@ -14,6 +14,14 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+    public void Quiz1()
+    {
+        SceneManager.LoadScene("QuizLvl1");
+    }
+    public void Quiz2()
+    {
+        SceneManager.LoadScene("QuizLvl2");
+    }
     public void Resume()
     {
         pauseMenu.SetActive(false);

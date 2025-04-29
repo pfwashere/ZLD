@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro; // For TextMeshPro UI
+
 
 using list = System.Collections.Generic.List<Particle>;
 using vector2 = UnityEngine.Vector2;
@@ -42,8 +45,17 @@ public class Simulation : MonoBehaviour
     public float y_min = -1.4f;
     public float y_max = 0.61f;
 
+    public TextMeshProUGUI lossRateText; // Drag your TMP text here via Inspector
+
+    private float lostLiters = 0f;
+    private float timeSinceStart = 0f;
+    private float volumePerParticle = 0.001f; // adjust based on your scale
+
+
     void Start()
     {
+        timeSinceStart = 0f;
+
         Base_Particle = GameObject.Find("Base_Particle");
 
         // Initialize spatial partitioning grid
@@ -251,5 +263,36 @@ public class Simulation : MonoBehaviour
         calculate_viscosity(particles);
         time = Time.realtimeSinceStartup - time;
         //Debug.Log("Time to calculate viscosity: " + time);
+
+        // Update simulation time
+        timeSinceStart += Time.deltaTime;
+
+        // Calculate lost particles (outside bounds)
+        int lostParticles = 0;
+        foreach (Particle p in particles)
+        {
+            if (p.pos.y < BOTTOM || p.pos.x < x_min || p.pos.x > x_max)
+                lostParticles++;
+        }
+        float lostVolume = lostParticles * volumePerParticle;
+        float lossRate = (lostVolume / timeSinceStart) * 60f; // L/min
+
+        // Calculate particles flowing across WALL_POS
+        int flowingParticles = 0;
+        foreach (Particle p in particles)
+        {
+            if (p.pos.x > WALL_POS && p.vel.x > 0)
+                flowingParticles++;
+        }
+        float flowingVolume = flowingParticles * volumePerParticle;
+        float flowRate = (flowingVolume / Time.deltaTime) * 60f; // L/min
+
+        // Update the UI
+        if (lossRateText != null)
+        {
+            lossRateText.text = $"Loss Rate: {lossRate:F2} L/min\nFlow Rate: {flowRate:F2} L/min";
+        }
+
+
     }
 }
