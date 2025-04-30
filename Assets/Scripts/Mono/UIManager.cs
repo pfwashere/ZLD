@@ -20,6 +20,7 @@ public struct UIManagerParameters
     [SerializeField] Color finalBGColor;
     public Color FinalBGColor { get { return finalBGColor; } }
 }
+
 [Serializable()]
 public struct UIElements
 {
@@ -57,54 +58,47 @@ public struct UIElements
     [SerializeField] RectTransform finishUIElements;
     public RectTransform FinishUIElements { get { return finishUIElements; } }
 }
-public class UIManager : MonoBehaviour {
 
+public class UIManager : MonoBehaviour
+{
     #region Variables
 
-    public enum         ResolutionScreenType   { Correct, Incorrect, Finish }
+    public enum ResolutionScreenType { Correct, Incorrect, Finish }
 
     [Header("References")]
-    [SerializeField]    GameEvents             events                       = null;
+    [SerializeField] GameEvents events = null;
 
     [Header("UI Elements (Prefabs)")]
-    [SerializeField]    AnswerData             answerPrefab                 = null;
+    [SerializeField] AnswerData answerPrefab = null;
 
-    [SerializeField]    UIElements             uIElements                   = new UIElements();
+    [SerializeField] UIElements uIElements = new UIElements();
 
     [Space]
-    [SerializeField]    UIManagerParameters    parameters                   = new UIManagerParameters();
+    [SerializeField] UIManagerParameters parameters = new UIManagerParameters();
 
-    private             List<AnswerData>       currentAnswers               = new List<AnswerData>();
-    private             int                    resStateParaHash             = 0;
+    private List<AnswerData> currentAnswers = new List<AnswerData>();
+    private int resStateParaHash = 0;
 
-    private             IEnumerator            IE_DisplayTimedResolution    = null;
+    private IEnumerator IE_DisplayTimedResolution = null;
 
     #endregion
 
     #region Default Unity methods
 
-    /// <summary>
-    /// Function that is called when the object becomes enabled and active
-    /// </summary>
     void OnEnable()
     {
-        events.UpdateQuestionUI         += UpdateQuestionUI;
-        events.DisplayResolutionScreen  += DisplayResolution;
-        events.ScoreUpdated             += UpdateScoreUI;
-    }
-    /// <summary>
-    /// Function that is called when the behaviour becomes disabled
-    /// </summary>
-    void OnDisable()
-    {
-        events.UpdateQuestionUI         -= UpdateQuestionUI;
-        events.DisplayResolutionScreen  -= DisplayResolution;
-        events.ScoreUpdated             -= UpdateScoreUI;
+        events.UpdateQuestionUI += UpdateQuestionUI;
+        events.DisplayResolutionScreen += DisplayResolution;
+        events.ScoreUpdated += UpdateScoreUI;
     }
 
-    /// <summary>
-    /// Function that is called when the script instance is being loaded.
-    /// </summary>
+    void OnDisable()
+    {
+        events.UpdateQuestionUI -= UpdateQuestionUI;
+        events.DisplayResolutionScreen -= DisplayResolution;
+        events.ScoreUpdated -= UpdateScoreUI;
+    }
+
     void Start()
     {
         UpdateScoreUI();
@@ -113,17 +107,12 @@ public class UIManager : MonoBehaviour {
 
     #endregion
 
-    /// <summary>
-    /// Function that is used to update new question UI information.
-    /// </summary>
     void UpdateQuestionUI(Question question)
     {
         uIElements.QuestionInfoTextObject.text = question.Info;
         CreateAnswers(question);
     }
-    /// <summary>
-    /// Function that is used to display resolution screen.
-    /// </summary>
+
     void DisplayResolution(ResolutionScreenType type, int score)
     {
         UpdateResUI(type, score);
@@ -140,6 +129,7 @@ public class UIManager : MonoBehaviour {
             StartCoroutine(IE_DisplayTimedResolution);
         }
     }
+
     IEnumerator DisplayTimedResolution()
     {
         yield return new WaitForSeconds(GameUtility.ResolutionDelayTime);
@@ -147,9 +137,6 @@ public class UIManager : MonoBehaviour {
         uIElements.MainCanvasGroup.blocksRaycasts = true;
     }
 
-    /// <summary>
-    /// Function that is used to display resolution UI information.
-    /// </summary>
     void UpdateResUI(ResolutionScreenType type, int score)
     {
         var highscore = PlayerPrefs.GetInt(GameUtility.SavePrefKey);
@@ -169,6 +156,7 @@ public class UIManager : MonoBehaviour {
             case ResolutionScreenType.Finish:
                 uIElements.ResolutionBG.color = parameters.FinalBGColor;
                 uIElements.ResolutionStateInfoText.text = "FINAL SCORE";
+                uIElements.ResolutionScoreText.text = "0"; // Initialize to 0
 
                 StartCoroutine(CalculateScore());
                 uIElements.FinishUIElements.gameObject.SetActive(true);
@@ -178,24 +166,36 @@ public class UIManager : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Function that is used to calculate and display the score.
-    /// </summary>
     IEnumerator CalculateScore()
     {
         var scoreValue = 0;
-        while (scoreValue < events.CurrentFinalScore)
-        {
-            scoreValue++;
-            uIElements.ResolutionScoreText.text = scoreValue.ToString();
+        var targetScore = events.CurrentFinalScore;
 
-            yield return null;
+        if (targetScore > 0)
+        {
+            while (scoreValue < targetScore)
+            {
+                scoreValue++;
+                uIElements.ResolutionScoreText.text = $"+{scoreValue}";
+                yield return null;
+            }
+        }
+        else if (targetScore < 0)
+        {
+            while (scoreValue > targetScore)
+            {
+                scoreValue--;
+                uIElements.ResolutionScoreText.text = scoreValue.ToString();
+                yield return null;
+            }
+        }
+        else
+        {
+            uIElements.ResolutionScoreText.text = "0";
+            yield break;
         }
     }
 
-    /// <summary>
-    /// Function that is used to create new question answers.
-    /// </summary>
     void CreateAnswers(Question question)
     {
         EraseAnswers();
@@ -214,9 +214,7 @@ public class UIManager : MonoBehaviour {
             currentAnswers.Add(newAnswer);
         }
     }
-    /// <summary>
-    /// Function that is used to erase current created answers.
-    /// </summary>
+
     void EraseAnswers()
     {
         foreach (var answer in currentAnswers)
@@ -226,9 +224,6 @@ public class UIManager : MonoBehaviour {
         currentAnswers.Clear();
     }
 
-    /// <summary>
-    /// Function that is used to update score text UI.
-    /// </summary>
     void UpdateScoreUI()
     {
         uIElements.ScoreText.text = "Score: " + events.CurrentFinalScore;

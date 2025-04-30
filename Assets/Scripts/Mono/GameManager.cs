@@ -127,13 +127,17 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     void Display()
     {
+        Debug.Log($"Before Display: CurrentFinalScore = {events.CurrentFinalScore}");
         EraseAnswers();
         var question = GetRandomQuestion();
 
         if (events.UpdateQuestionUI != null)
         {
             events.UpdateQuestionUI(question);
-        } else { Debug.LogWarning("Ups! Something went wrong while trying to display new Question UI Data. GameEvents.UpdateQuestionUI is null. Issue occured in GameManager.Display() method."); }
+        }
+        else { Debug.LogWarning("Ups! Something went wrong while trying to display new Question UI Data. GameEvents.UpdateQuestionUI is null. Issue occured in GameManager.Display() method."); }
+
+        Debug.Log($"After UpdateQuestionUI: CurrentFinalScore = {events.CurrentFinalScore}");
 
         if (question.UseTimer)
         {
@@ -157,15 +161,16 @@ public class GameManager : MonoBehaviour {
             SetHighscore();
         }
 
-        var type 
-            = (IsFinished) 
-            ? UIManager.ResolutionScreenType.Finish 
-            : (isCorrect) ? UIManager.ResolutionScreenType.Correct 
+        var type
+            = (IsFinished)
+            ? UIManager.ResolutionScreenType.Finish
+            : (isCorrect) ? UIManager.ResolutionScreenType.Correct
             : UIManager.ResolutionScreenType.Incorrect;
 
         if (events.DisplayResolutionScreen != null)
         {
-            events.DisplayResolutionScreen(type, Questions[currentQuestion].AddScore);
+            // Change this line to pass events.CurrentFinalScore instead of Questions[currentQuestion].AddScore
+            events.DisplayResolutionScreen(type, events.CurrentFinalScore);
         }
 
         AudioManager.Instance.PlaySound((isCorrect) ? "CorrectSFX" : "IncorrectSFX");
@@ -320,7 +325,9 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     private void UpdateScore(int add)
     {
+        Debug.Log($"Before UpdateScore: CurrentFinalScore = {events.CurrentFinalScore}, Adding = {add}");
         events.CurrentFinalScore += add;
+        Debug.Log($"After UpdateScore: CurrentFinalScore = {events.CurrentFinalScore}");
 
         if (events.ScoreUpdated != null)
         {

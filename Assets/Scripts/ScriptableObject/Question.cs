@@ -33,7 +33,7 @@ public class Question : ScriptableObject {
     [SerializeField] private    AnswerType  _answerType     = AnswerType.Multi;
     public                      AnswerType  GetAnswerType   { get { return _answerType; } }
 
-    [SerializeField]    [Range(0, 10000)]   private         int     _addScore = 10;
+    [SerializeField] private    int         _addScore = 10;
     public                      int         AddScore        { get { return _addScore; } }
 
     /// <summary>

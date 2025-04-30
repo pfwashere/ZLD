@@ -63,7 +63,7 @@ public class DragDrop2D : MonoBehaviour
         {
             Description.SetActive(false);
             if (hit.CompareTag("Bin"))
-            {             
+            {               
                 
                 new WaitForSeconds(0.2f);
                 Destroy(gameObject); // ลบวัตถุ

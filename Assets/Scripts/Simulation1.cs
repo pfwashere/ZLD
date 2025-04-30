@@ -11,7 +11,7 @@ using vector2 = UnityEngine.Vector2;
 using static Config;
 using Mono.Cecil.Cil;
 
-public class Simulation : MonoBehaviour
+public class Simulation1 : MonoBehaviour
 {
     public list particles = new list();
 
@@ -306,10 +306,10 @@ public class Simulation : MonoBehaviour
 
         if (isWaterOn)
         {
-            // น้ำเปิด → อุณหภูมิอยู่ระหว่าง 5-13°C แบบสุ่มเบาๆ
+            // น้ำเปิด → อุณหภูมิอยู่ระหว่าง 23-32°C แบบสุ่มเบาๆ
             float tempChange = Random.Range(-0.2f, 0.2f);
             temperature += tempChange;
-            temperature = Mathf.Clamp(temperature, 5f, 13f);
+            temperature = Mathf.Clamp(temperature, 23f, 32f);
 
             float energyconsumptionChange = Random.Range(-0.2f, 0.2f);
             energyconsumption += energyconsumptionChange;
