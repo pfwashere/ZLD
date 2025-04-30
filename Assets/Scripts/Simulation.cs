@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -46,10 +46,13 @@ public class Simulation : MonoBehaviour
     public float y_max = 0.61f;
 
     public TextMeshProUGUI lossRateText; // Drag your TMP text here via Inspector
+    public TextMeshProUGUI temperatureText;
 
     private float lostLiters = 0f;
     private float timeSinceStart = 0f;
     private float volumePerParticle = 0.001f; // adjust based on your scale
+    private float temperature = 25f; 
+
 
 
     void Start()
@@ -292,6 +295,25 @@ public class Simulation : MonoBehaviour
         {
             lossRateText.text = $"Loss Rate: {lossRate:F2} L/min\nFlow Rate: {flowRate:F2} L/min";
         }
+
+        // เปลี่ยนอุณหภูมิค่อยๆ
+        float tempChange = Random.Range(-0.2f, 0.2f);
+        temperature += tempChange;
+        temperature = Mathf.Clamp(temperature, 20f, 30f);
+
+        // อัปเดต Loss Rate กับ Flow Rate
+        if (lossRateText != null)
+        {
+            lossRateText.text = $"Loss Rate: {lossRate:F2} L/min\nFlow Rate: {flowRate:F2} L/min";
+        }
+
+        // อัปเดต Temperature แยกกล่อง
+        if (temperatureText != null)
+        {
+            temperatureText.text = $"Temperature: {temperature:F1} C";
+        }
+
+
 
 
     }

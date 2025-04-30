@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager1 : MonoBehaviour {
 
     #region Variables
 
@@ -180,15 +180,6 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(IE_WaitTillNextRound);
         }
     }
-    /// <summary>
-    /// Function that resets the high score to 0.
-    /// </summary>
-    public void ResetHighscore()
-    {
-        PlayerPrefs.SetInt(GameUtility.SavePrefKey, 0);
-        PlayerPrefs.Save();
-        events.StartupHighscore = 0;
-    }
 
     #region Timer Methods
 
@@ -280,7 +271,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     void LoadQuestions()
     {
-        Object[] objs = Resources.LoadAll("Questions1", typeof(Question));
+        Object[] objs = Resources.LoadAll("Questions2", typeof(Question));
         _questions = new Question[objs.Length];
         for (int i = 0; i < objs.Length; i++)
         {
@@ -326,6 +317,15 @@ public class GameManager : MonoBehaviour {
         {
             events.ScoreUpdated();
         }
+    }
+    /// <summary>
+    /// Function that resets the high score to 0.
+    /// </summary>
+    public void ResetHighscore()
+    {
+        PlayerPrefs.SetInt(GameUtility.SavePrefKey, 0);
+        PlayerPrefs.Save();
+        events.StartupHighscore = 0;
     }
 
     #region Getters
