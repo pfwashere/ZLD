@@ -16854,15 +16854,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 443467480339800747, guid: 1601814faabf5374886dcce813aa4cbb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.06
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 443467480339800747, guid: 1601814faabf5374886dcce813aa4cbb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.06
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 443467480339800747, guid: 1601814faabf5374886dcce813aa4cbb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.06
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 443467480339800749, guid: 1601814faabf5374886dcce813aa4cbb, type: 3}
       propertyPath: m_CollisionDetection

@@ -6,7 +6,7 @@ public class Shower : MonoBehaviour
     public GameObject Simulation;
     public GameObject Base_Particle;
     public Vector2 init_speed = new Vector2(1.0f, 0.0f);
-    public float spawn_rate = 50f;
+    public float spawn_rate = 100f;
     private float time;
 
     private bool isRunning = true;
@@ -27,7 +27,7 @@ public class Shower : MonoBehaviour
 
     void Update()
     {
-        if (!isRunning || Simulation.transform.childCount >= 1000)
+        if (!isRunning || Simulation.transform.childCount >= 1500)
             return;
 
         time += Time.deltaTime;
@@ -50,7 +50,7 @@ public class Shower : MonoBehaviour
     public void ToggleShower()
     {
         isRunning = !isRunning;
-        spawn_rate = isRunning ? 50f : 0f;
+        spawn_rate = isRunning ? 100f : 0f;
 
         // Update button color
         if (toggleButton != null)
