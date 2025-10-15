@@ -23,4 +23,5 @@ public class LogoText : MonoBehaviour
     {
         tooltip.SetActive(false);
     }
+
 }

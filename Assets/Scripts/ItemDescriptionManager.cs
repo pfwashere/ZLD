@@ -14,6 +14,7 @@ public class ItemDescriptionManager : MonoBehaviour
     {
        Cursor.visible = true;
         gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame

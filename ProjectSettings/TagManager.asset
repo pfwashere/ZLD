@@ -8,6 +8,22 @@ TagManager:
   - DropArea
   - Slot
   - Bin
+  - Filter
+  - Water
+  - Heater
+  - buffer
+  - Unfilter
+  - CheckPipe
+  - WaterFiltered
+  - WaterHeated
+  - WaterClean
+  - SmellFIltered
+  - Pipe
+  - Evaporated
+  - Cooling
+  - Centrifuge
+  - CleanestWater
+  - End
   layers:
   - Default
   - TransparentFX

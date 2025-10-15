@@ -12,22 +12,27 @@ public class PauseMenu : MonoBehaviour
 
     public void Home()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
     public void Level1()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Level 1");
     }
     public void Level2()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Level 2");
     }
     public void Quiz1()
     {
-        SceneManager.LoadScene("QuizLvl1");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("QuizLvl1");         
     }
     public void Quiz2()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("QuizLvl2");
     }
     public void Resume()

@@ -6,10 +6,10 @@ public class SlideUp : MonoBehaviour
 {
     public void StartSlideUp()
     {
-        transform.LeanMoveLocal(new Vector2(0, -357), 1).setEaseOutBack();
+        transform.LeanMoveLocal(new Vector2(0, -470), 1).setEaseOutBack();
     }
     public void StartSlideDown()
     {
-        transform.LeanMoveLocal(new Vector2(0, -520), 1).setEaseOutBack();
+        transform.LeanMoveLocal(new Vector2(0, -611), 1).setEaseOutBack();
     }
 }

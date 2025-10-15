@@ -16,8 +16,26 @@ EditorBuildSettings:
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/Level 2.unity
-    guid: 1f76b9a7866e2504a967fb7d8471003c
+    guid: adff163ac8d13d442936a04c6cc2b08a
   - enabled: 1
     path: Assets/Scenes/QuizLvl2.unity
     guid: c41164df5472a124c9f55bb289fbcfef
+  - enabled: 1
+    path: Assets/Scenes/WhatIs.unity
+    guid: 1480467f562c3c245a2c36f8ea4948cf
+  - enabled: 1
+    path: Assets/Scenes/WhatIs 1.unity
+    guid: b9a6b80c4e0125a43ba1d521bf3a6f99
+  - enabled: 1
+    path: Assets/Scenes/WhatIs 2.unity
+    guid: 83ead3277a5c5744b84a6bddd3817cc0
+  - enabled: 1
+    path: Assets/Scenes/HowTo.unity
+    guid: c0b1b3dced6ec3146b55aaa55737e077
+  - enabled: 1
+    path: Assets/Scenes/HowTo2.unity
+    guid: ce9a7744e64b053449a0c16d7df9b364
+  - enabled: 1
+    path: Assets/Scenes/HowTo3.unity
+    guid: 1673d316a72ca9f4f8f6121ad0b0a7e6
   m_configObjects: {}

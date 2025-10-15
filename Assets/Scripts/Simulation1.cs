@@ -1,15 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro; // For TextMeshPro UI
 
 
 using list = System.Collections.Generic.List<Particle>;
 using vector2 = UnityEngine.Vector2;
-
-using static Config;
-using Mono.Cecil.Cil;
 
 public class Simulation1 : MonoBehaviour
 {
